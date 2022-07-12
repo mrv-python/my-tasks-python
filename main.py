@@ -27,13 +27,9 @@ def main():
 
 def loadTasks():
   file = open("tasks.txt", "r")
-  tasksJsonStr = file.read()
+  data = json.load(file)
   file.close()
-
-  if tasksJsonStr == "":
-    return []
-  else:
-    return json.loads(tasksJsonStr)
+  return data
 
 def getMenuSelection():
   print("\nMY TASKS MENU")
@@ -80,11 +76,9 @@ def removeTask(tasks):
   print(f"Task {index} removed")
 
 def saveTasks(tasks):
-  # Convert tasks list to json
-  tasksJsonStr = json.dumps(tasks)
-
+  # Save Tasks to file as json
   file = open("tasks.txt", "w")
-  file.write(tasksJsonStr)
+  json.dump(tasks, file)
   file.close()
 
 
