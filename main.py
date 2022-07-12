@@ -2,6 +2,7 @@
 
 import json
 
+# Main Program
 def main():
   # Program Variables
   tasks = loadTasks()
@@ -25,12 +26,14 @@ def main():
     else:
       print("Invalid Selection")
 
+# Load Tasks from json file
 def loadTasks():
   file = open("tasks.txt", "r")
   data = json.load(file)
   file.close()
   return data
 
+# Print & Return User's Menu Selection
 def getMenuSelection():
   print("\nMY TASKS MENU")
   print("1: View Tasks")
@@ -40,6 +43,7 @@ def getMenuSelection():
   print("5: Exit")
   return input("Selection (1-5): ")
 
+# Display all tasks
 def viewTasks(tasks):
   print("\nTASK LIST")
   for i in range(len(tasks)):
@@ -49,13 +53,7 @@ def viewTasks(tasks):
     else:
       print(f"{i}: \u2610 {task['task']} ({task['priority']} Priority)")
 
-def newTask(task, priority):
-  return {
-    'task': task,
-    'priority': priority,
-    'completed': False
-  }
-
+# Add a new task
 def addTask(tasks):
   print("\nNEW TASK")
   task = input("Enter new task: ")
@@ -63,24 +61,34 @@ def addTask(tasks):
   tasks.append(newTask(task, priority))
   print("Task added")
 
+# Return a dictionary for the given task
+def newTask(task, priority):
+  return {
+    'task': task,
+    'priority': priority,
+    'completed': False
+  }
+
+# Mark a user defined task as completed
 def completeTask(tasks):
   print("\nCOMPLETE TASK")
   index = int(input("Enter task #: "))
   tasks[index]['completed'] = True
   print(f"Task {index} completed")
 
+# Remove a user defined tasks
 def removeTask(tasks):
   print("\nREMOVE TASK")
   index = int(input("Enter task #: "))
   tasks.pop(index)
   print(f"Task {index} removed")
 
+# Save tasks to json file
 def saveTasks(tasks):
   # Save Tasks to file as json
   file = open("tasks.txt", "w")
   json.dump(tasks, file)
   file.close()
-
 
 # Call main() to begin program
 main()
